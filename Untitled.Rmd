@@ -1,0 +1,39 @@
+---
+title: "Alejandra_hw04_gapminder_tidy_data_joins"
+output: github_document
+always_allow_html: yes
+---
+
+## Tidy data and joins
+
+This is an R Markdown document that has the objective of practicing and strengthen data wrangling skills by working with some realistic problems in the grey area between data aggregation and data reshaping. 
+
+According to Hadley Wickham, **Data Tidying** is structuring datasets to facilitate analysis.
+
+## Loading data and required libraries
+
+```{r, warning=FALSE, message = FALSE}
+library(gapminder)
+library(dplyr)
+library(tidyr)
+library(kableExtra)
+library(gridExtra)
+library(ggplot2)
+```
+
+**Data Reshaping Prompts (and relationship to aggregation)**
+
+
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+```{r}
+plot(cars)
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+
