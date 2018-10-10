@@ -13999,8 +13999,7 @@ NA
 
 ### match()
 
-Let’s try to match the variable country in the
-subsets:
+Let’s try to match the variable country in the subsets:
 
 ``` r
 (countries_index<- match(countries_visited$country, Euro_2007$country))
@@ -14008,8 +14007,14 @@ subsets:
 
     ##  [1]  2 NA  6  7 10 13 24 25 28 NA
 
+This output is the positions of the matched values in the `Euro_2007`
+data set.
+
+Now I’ll try to return the values of those
+matches:
+
 ``` r
-(countries_names <- Euro_2007$country[countries_index]) #created a vector to know which are the matching values.
+(countries_names <- Euro_2007$country[countries_index]) #created a vector to know which are the matching countries.
 ```
 
     ##  [1] Austria         <NA>            Croatia         Czech Republic 
@@ -14295,3 +14300,15 @@ The `dplyr` joins can save some lines of code in some cases, it lets you
 know which variable is using to join, and it’s easy to work with data
 frames but I can also see how `merge()` and `match()` can be handy
 sometimes :smile:
+
+## References:
+
+[Tidy Data](http://vita.had.co.nz/papers/tidy-data.pdf) [Cheatsheet for
+dplyr join functions](http://stat545.com/bit001_dplyr-cheatsheet.html)
+[NATO member
+countries](https://www.nato.int/cps/en/natohq/nato_countries.htm) [OECD
+member countries](https://www.oecd.org/about/membersandpartners/) [join
+vs
+merge](http://zevross.com/blog/2014/04/30/mini-post-for-large-tables-in-r-dplyrs-function-inner_join-is-much-faster-than-merge/)
+[How to join(merge) data
+frames](https://stackoverflow.com/questions/1299871/how-to-join-merge-data-frames-inner-outer-left-right)
