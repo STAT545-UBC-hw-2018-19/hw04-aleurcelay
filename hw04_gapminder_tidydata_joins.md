@@ -32,9 +32,11 @@ analysis.
   - Make a tibble with one row per year and columns for life expectancy
     for two or more countries.
 
-\-Use knitr::kable() to make this table look pretty in your rendered
-homework. -Take advantage of this new data shape to scatterplot life
-expectancy for one country against that of another.
+  - Use knitr::kable() to make this table look pretty in your rendered
+    homework.
+
+  - Take advantage of this new data shape to scatterplot life expectancy
+    for one country against that of another.
 
 For this activity, I will select the countries from North America:
 Mexico, United States and Canada.
@@ -943,16 +945,16 @@ countries was less than 5 years.
 
 ## Activity 3: Compute a measure of life expectancy
 
-\*Compute some measure of life expectancy for all possible combinations
-of continent and year. Reshape that to have one row per year and one
-variable for each continent. Or the other way around: one row per
-continent and one variable per year.
+  - Compute some measure of life expectancy for all possible
+    combinations of continent and year. Reshape that to have one row per
+    year and one variable for each continent. Or the other way around:
+    one row per continent and one variable per year.
 
-\*Use knitr::kable() to make these tables look pretty in your rendered
-homework.
+  - Use knitr::kable() to make these tables look pretty in your rendered
+    homework.
 
-\*Is there a plot that is easier to make with the data in this shape
-versis the usual form? If so (or you think so), try it\! Reflect.
+  - Is there a plot that is easier to make with the data in this shape
+    versis the usual form? If so (or you think so), try it\! Reflect.
 
 For this task, I will look at the maximum values of life expectancy in
 continents throughout the year. First, let’s look at the subset of this
@@ -4786,7 +4788,7 @@ Oceania
 Now we have the original subset. In this case, R put all the year
 columns that I had before into a single one.
 
-\#Join Prompts (join, merge, look up)
+# Join Prompts (join, merge, look up)
 
 ## Activity \#1
 
@@ -4798,8 +4800,12 @@ of joins.
 For this task, I will choose some countries I’ve visited. The variables
 in this second data frame will be:
 
-*country *continent *language spoken *a city visited *NATO membership
-*OECD membership
+  - country
+  - continent
+  - language spoken
+  - a city visited
+  - NATO membership
+  - OECD membership
 
 Now, let’s create the data
 frame:
@@ -6166,7 +6172,7 @@ Europe
 in y, and all columns from x and y.
 
 ``` r
-inner_join(countries_visited, Euro_2007) %>% # x=Euro_2007, y=new_df
+inner_join(countries_visited, Euro_2007) %>% # x=new_df, y=Euro_2007
   kable() %>%
   kable_styling(full_width = FALSE)
 ```
@@ -7641,10 +7647,11 @@ output even when they are not contained within the `Euro_2007`. Since
 these countries don’t have a match with `Euro_2007` `NA` appears in the
 columns that don’t belong to `countries_visited`.
 
-Now let’s change the value of x and y to and see what happens:
+Now let’s change the value of x and y to and see what
+happens:
 
 ``` r
-left_join(Euro_2007, countries_visited) %>%
+left_join(Euro_2007, countries_visited) %>% #This time x=Euro_2007 and y=countries_visited
   kable()%>%
   kable_styling(full_width = FALSE)
 ```
@@ -11165,9 +11172,11 @@ All data from both datasets is kept: matching and non matches.
 
 ## Activity \#3
 
-*Exploring `merge()` which also does joins. Compare with `dplyr` joins.
-*Exploring `match()` which is related to joins and merges, but is more
-of a “table lookup”.
+  - Exploring `merge()` which also does joins. Compare with `dplyr`
+    joins.
+
+  - Exploring `match()` which is related to joins and merges, but is
+    more of a “table lookup”.
 
 ### merge()
 
@@ -13396,7 +13405,7 @@ NA
 
 </table>
 
-`merge()` can also return the outputs like when I used `left_join()`
+`merge()` can also return the output like when I used `left_join()`
 
 ``` r
 merge(countries_visited, Euro_2007, all.x=TRUE) %>%
@@ -13990,7 +13999,7 @@ NA
 
 ### match()
 
-Let’s try to match the countries in the
+Let’s try to match the variable country in the
 subsets:
 
 ``` r
@@ -14279,7 +14288,10 @@ Europe
 </table>
 
 This output is as if I used the `semi_join` function keeping only
-matching values and columns from only one of the subsets.
+matching values and columns from only one of the subsets. But this
+function works with vectors.
 
-The `dplyr` joins can save some lines of code but I can see how
-`merge()` and `match()` can be handy :smile:
+The `dplyr` joins can save some lines of code in some cases, it lets you
+know which variable is using to join, and it’s easy to work with data
+frames but I can also see how `merge()` and `match()` can be handy
+sometimes :smile:
