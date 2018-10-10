@@ -21,11 +21,11 @@ library(gridExtra)
 library(ggplot2)
 ```
 
-**Data Reshaping Prompts (and relationship to aggregation)**
+# Data Reshaping Prompts (and relationship to aggregation)
  
 Using `gather()` and `spread()` functions to reshape data can be very useful to present tables, figures or doing aggregations and statistical analysis. 
  
- ## Activity 2: 
+## Activity 2: 
  
 - Make a tibble with one row per year and columns for life expectancy for two or more countries.
 
@@ -97,11 +97,11 @@ With the tidy data, we can compare life expectancy between countries in North Am
 
 ## Activity 3: Compute a measure of life expectancy 
 
--Compute some measure of life expectancy for all possible combinations of continent and year. Reshape that to have one row per year and one variable for each continent. Or the other way around: one row per continent and one variable per year.
+*Compute some measure of life expectancy for all possible combinations of continent and year. Reshape that to have one row per year and one variable for each continent. Or the other way around: one row per continent and one variable per year.
 
--Use knitr::kable() to make these tables look pretty in your rendered homework.
+*Use knitr::kable() to make these tables look pretty in your rendered homework.
 
--Is there a plot that is easier to make with the data in this shape versis the usual form? If so (or you think so), try it! Reflect.
+*Is there a plot that is easier to make with the data in this shape versis the usual form? If so (or you think so), try it! Reflect.
 
 
 For this task, I will look at the maximum values of life expectancy in continents throughout the year.
@@ -162,7 +162,8 @@ tidy_year %>%
   labs(x= "Maximum Life Expectancy in 2007", y="Maximum Life Expectancy in 1997")
 ```
 
-The plot shows how the maximum value of life expectancy changed in 10 years for the 5 continents. In general, they all increased over this period of time. 
+The plot shows how the maximum value of life expectancy changed in 10 years for the 5 continents. In general, they all increased over this period. 
+
 
 
 `gather()` does the opposite of `spread()`. It collects a set of column names and places them into a single "key" column.
@@ -179,7 +180,7 @@ gather(tidy_year, year, max_lifeExp, -continent) %>% #define data, key and value
 Now we have the original subset. In this case, R put all the year columns that I had before into a single one. 
 
 
-**Join Prompts (join, merge, look up)**
+#Join Prompts (join, merge, look up)
 
 ## Activity #1
 
@@ -225,7 +226,7 @@ kable(Euro_2007) %>%
  
  `inner_join()` returns all rows from x where there are matching values in y, and all columns from x and y. 
  
-```{r}
+```{r, warning=FALSE, message = FALSE}
 inner_join(countries_visited, Euro_2007) %>% # x=Euro_2007, y=new_df
   kable() %>%
   kable_styling(full_width = FALSE)
@@ -238,7 +239,7 @@ inner_join(countries_visited, Euro_2007) %>% # x=Euro_2007, y=new_df
  
  `semi_join()` Returns all rows from x where there are matching values in y, keeping just the columns from x.
  
-```{r}
+```{r, warning=FALSE, message = FALSE}
 semi_join(countries_visited, Euro_2007) %>%
   kable()%>%
   kable_styling(full_width = FALSE)
@@ -250,7 +251,7 @@ We can see in the table above that only the columns from `countries_visited` wer
 
 `left_join()` returns all rows from x, and all columns from x and y. 
 
-```{r}
+```{r, warning=FALSE, message = FALSE}
 left_join(countries_visited, Euro_2007) %>%
   kable()%>%
   kable_styling(full_width = FALSE)
@@ -260,7 +261,7 @@ Here, we can see that the countries from the Americas were kept in the output ev
 
 Now let's change the value of x and y to and see what happens:
 
-```{r}
+```{r, warning=FALSE, message = FALSE}
 left_join(Euro_2007, countries_visited) %>%
   kable()%>%
   kable_styling(full_width = FALSE)
@@ -272,7 +273,7 @@ We can see that all rows (countries) from the `Euro_2007` subset were kept and a
 
 `anti_join()` returns all rows from x where there are not matching values in y, keeping just columns from x. 
 
-```{r}
+```{r, warning=FALSE, message = FALSE}
 anti_join(countries_visited, Euro_2007) %>%
   kable()%>%
   kable_styling(full_width = FALSE)
@@ -284,17 +285,65 @@ We can see that only the countries from the Americas were kept, only the non-mat
 
 `full_join()` returns all rows and all columns from both x and y. NA is returned for non matching values. 
 
-```{r}
+```{r, warning=FALSE, message = FALSE}
 full_join(countries_visited, Euro_2007) %>%
   kable()%>%
   kable_styling(full_width = FALSE)
   
 ```
 
-All data from both `countries_visited` and `Euro_2007` is kept matches and non matches. 
+All data from both datasets is kept: matching and non matches. 
 
 
 ## Activity #3
 
-*Exploring `merge()` which also does joins.
-*Exploring `match()` 
+*Exploring `merge()` which also does joins. Compare with `dplyr` joins.
+*Exploring `match()` which is related to joins and merges, but is more of a "table lookup".
+
+### merge()
+
+```{r}
+merge(countries_visited, Euro_2007) %>%
+  kable()%>%
+  kable_styling(full_width = FALSE)
+```
+
+This output is the same as the output when applying `inner_join()`.
+
+Doing some research, I found out that it is possible to use `merge()` to get the same results from `full_join()` as follows:
+
+```{r}
+merge(countries_visited, Euro_2007, all=TRUE) %>%
+  kable()%>%
+  kable_styling(full_width = FALSE)
+```
+
+`merge()` can also return the outputs like when I used `left_join()`
+
+```{r}
+merge(countries_visited, Euro_2007, all.x=TRUE) %>%
+  kable()%>%
+  kable_styling(full_width = FALSE)
+```
+
+
+### match()
+
+Let's try to match the countries in the subsets:
+
+```{r}
+(countries_index<- match(countries_visited$country, Euro_2007$country))
+```
+
+```{r}
+
+(countries_names <- Euro_2007$country[countries_index]) #created a vector to know which are the matching values.
+
+Euro_2007[Euro_2007$country %in% countries_names,] %>% #work around to get columns from Euro_2007
+    kable()%>%
+  kable_styling(full_width = FALSE)
+```
+
+This output is as if I used the `semi_join` function keeping only matching values and columns from only one of the subsets. 
+
+The `dplyr` joins can save some lines of code but I can see how `merge()` and `match()` can be handy :smile:
