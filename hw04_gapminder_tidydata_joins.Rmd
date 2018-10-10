@@ -23,7 +23,7 @@ library(ggplot2)
 
 **Data Reshaping Prompts (and relationship to aggregation)**
  
- Using `gather()` and `spread()` functions to reshape data can be very useful to present tables, figures or doing aggregations and statistical analysis.
+Using `gather()` and `spread()` functions to reshape data can be very useful to present tables, figures or doing aggregations and statistical analysis. 
  
  ## Activity 2: 
  
@@ -68,11 +68,99 @@ grid.arrange(tableGrob(NAtable), NAplot, nrow = 1) #put table next to plot
 Now let's compare life expectancy between US and Canada by making a scatterplot:
 
 ```{r}
-NAtable %>%
-  ggplot(aes(x=Canada, y=Mexico)) +
-  geom_point(aes(color=year)) +
-  geom_smooth(method="lm", color="lightpink")
+g1 <- NAtable %>%
+  ggplot(aes(x=Mexico, y=Canada)) +
+  geom_point(aes(color= year)) +
+  scale_y_continuous(breaks = seq(0,85,by=2)) + #adjust axis to read plot easier
+  scale_x_continuous(breaks = seq(0,85,by=2)) +
+  labs(x= "Life Expectancy in Mexico", y= "Life Expectancy in Canada") #change axis labels
+  
+g2 <- NAtable %>%
+  ggplot(aes(x=Mexico, y=`United States`)) +
+  geom_point(aes(color= year)) +
+  scale_y_continuous(breaks = seq(0,85,by=2)) + #adjust axis to read plot easier
+  scale_x_continuous(breaks = seq(0,85,by=2)) +
+  labs(x= "Life Expectancy in Mexico", y= "Life Expectancy in US")
+  
+g3 <- NAtable %>%
+  ggplot(aes(x=`United States`, y=Canada)) +
+  geom_point(aes(color= year)) +
+  scale_y_continuous(breaks = seq(0,85,by=2)) + #adjust axis to read plot easier
+  scale_x_continuous(breaks = seq(0,85,by=2)) +
+  labs(x= "Life Expectancy in US", y= "Life Expectancy in Canada")
+  
+grid.arrange(g1, g2, g3, nrow=2)
 ```
 
+With the tidy data, we can compare life expectancy between countries in North America. In 1952, life expectancy in Mexico differed more than 15 years compared to Canada and the US, and with time that difference decreased. In 2007, the difference between Mexico and the other two countries was less than 5 years. 
 
+
+## Activity 3: Compute a measure of life expectancy 
+
+-Compute some measure of life expectancy for all possible combinations of continent and year. Reshape that to have one row per year and one variable for each continent. Or the other way around: one row per continent and one variable per year.
+
+-Use knitr::kable() to make these tables look pretty in your rendered homework.
+
+-Is there a plot that is easier to make with the data in this shape versis the usual form? If so (or you think so), try it! Reflect.
+
+
+For this task, I will look at the maximum values of life expectancy in continents throughout the year.
+First, let's look at the subset of this value without tidying yet:
+
+```{r}
+Max_LE=gapminder %>%
+  group_by(year, continent) %>%
+  summarize(max_lifeExp=max(lifeExp)) # Calculate the maximum value of life expectancy
+  
+kable(Max_LE) %>%
+kable_styling(full_width = FALSE, position = "center")
+```
+
+Now, let's reshape the subset above turning each continent into a variable and having one row per year:
+
+```{r}
+tidy_continent=Max_LE %>%
+spread(key = continent, value= max_lifeExp)
+
+kable(tidy_continent) %>%
+  kable_styling(full_width = FALSE, position = "center")
+```
+
+With this arrangement, we can compare for example the maximum values of life expectancy between two continents for the 12 years of data as follows:
+
+```{r}
+tidy_continent %>%
+  ggplot()+
+  geom_point(aes(Africa, Europe, color = factor(year)))+
+  scale_y_continuous(breaks = seq(0,90,by=2)) + #adjust axis scale and breaks
+  scale_x_continuous(breaks = seq(0,80,by=2)) +
+  labs(x= "Maximum Life Expectancy in Africa", y="Maximum Life Expectancy in Europe")
+```
+
+In the plot above, we can see how Europe's maximum value of life expectancy has ranged from 72 to 82, whilst Africa's has a wider range: between 52 and 77.
+
+
+I can also arrange the data the other way around, making one row per continent and one variable per year. 
+
+```{r}
+tidy_year=Max_LE%>%
+  spread(key=year, value=max_lifeExp)
+
+tidy_year%>%  
+  kable() %>%
+  kable_styling(full_width = FALSE, position = "center")
+```
+
+This allows to compare two years of data, for example:
+
+```{r}
+tidy_year %>%
+  ggplot()+
+  geom_point(aes(`2007`, `1997`, color = continent)) +
+  scale_y_continuous(breaks = seq(0,90,by=0.5)) + #adjust axis scale and breaks
+  scale_x_continuous(breaks = seq(0,90,by=0.5)) +
+  labs(x= "Maximum Life Expectancy in 2007", y="Maximum Life Expectancy in 1997")
+```
+
+The plot shows how the maximum value of life expectancy changed in 10 years for the 5 continents. In general, they all increased over this period of time. 
 
