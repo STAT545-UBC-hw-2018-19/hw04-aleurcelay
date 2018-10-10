@@ -3416,12 +3416,15 @@ The plot shows how the maximum value of life expectancy changed in 10
 years for the 5 continents. In general, they all increased over this
 period of time.
 
-`spread()` does the opposite of `gather()`. It collects a set of column
+`gather()` does the opposite of `spread()`. It collects a set of column
 names and places them into a single “key” column.
 
+Let’s check it out to rearrange the data
+again:
+
 ``` r
-gather(tidy_year, year, max_lifeExp, -continent) %>%
-  select(year, continent, max_lifeExp) %>%
+gather(tidy_year, year, max_lifeExp, -continent) %>% #define data, key and value, less the continent column created.
+  select(year, continent, max_lifeExp) %>% #rearrenge order of columns
   kable() %>%
   kable_styling(full_width = FALSE, position = "center")
 ```
