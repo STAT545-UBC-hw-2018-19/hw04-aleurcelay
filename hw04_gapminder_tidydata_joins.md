@@ -50,7 +50,7 @@ NAmerica = gapminder %>%
   
 #Put the subset in a table
   kable (NAmerica) %>%
-  kable_styling(full_width = FALSE, position = "center")
+  kable_styling(full_width = FALSE)
 ```
 
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
@@ -964,7 +964,7 @@ Max_LE=gapminder %>%
   summarize(max_lifeExp=max(lifeExp)) # Calculate the maximum value of life expectancy
   
 kable(Max_LE) %>%
-kable_styling(full_width = FALSE, position = "center")
+kable_styling(full_width = FALSE)
 ```
 
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
@@ -2329,7 +2329,7 @@ tidy_continent=Max_LE %>%
 spread(key = continent, value= max_lifeExp)
 
 kable(tidy_continent) %>%
-  kable_styling(full_width = FALSE, position = "center")
+  kable_styling(full_width = FALSE)
 ```
 
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
@@ -2892,7 +2892,7 @@ tidy_year=Max_LE%>%
 
 tidy_year%>%  
   kable() %>%
-  kable_styling(full_width = FALSE, position = "center")
+  kable_styling(full_width = FALSE)
 ```
 
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
@@ -3426,7 +3426,7 @@ again:
 gather(tidy_year, year, max_lifeExp, -continent) %>% #define data, key and value, less the continent column created.
   select(year, continent, max_lifeExp) %>% #rearrenge order of columns
   kable() %>%
-  kable_styling(full_width = FALSE, position = "center")
+  kable_styling(full_width = FALSE)
 ```
 
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
@@ -4795,26 +4795,27 @@ Create a second data frame, complementary to Gapminder. Join this with
 observations about the process and result. Explore the different types
 of joins.
 
-For this task, I will choose some European countries I’ve visited. The
-variables in this second data frame will be:
+For this task, I will choose some countries I’ve visited. The variables
+in this second data frame will be:
 
-*country *language spoken *a city visited *NATO membership \*OECD
-membership
+*country *continent *language spoken *a city visited *NATO membership
+*OECD membership
 
 Now, let’s create the data
 frame:
 
 ``` r
-country <- c ("Austria", "Croatia", "Czech Republic", "France", "Hungary","Slovak Republic","Slovenia", "Switzerland")
-language <-c ("German", "Croatian", "Czech", "French", "Hungarian", "Slovak", "Slovene", "French")
-city <- c("Vienna", "Zagreb", "Prague", "Paris", "Budapest", "Bratislava", "Ljubljana", "Geneva")
-NATO <- c(0,1,1,1,1,1,1,0) # 1: member of NATO, 0: non member
-OECD <- c(1,0,1,1,1,1,1,1) # 1: member of OECD, 0: non member
+country <- c ("Austria", "Canada", "Croatia", "Czech Republic", "France", "Hungary","Slovak Republic","Slovenia", "Switzerland", "United States")
+continent <- c("Europe", "Americas","Europe","Europe","Europe","Europe","Europe","Europe","Europe", "Americas" )
+language <-c ("German", "English", "Croatian", "Czech", "French", "Hungarian", "Slovak", "Slovene", "French", "English")
+city <- c("Vienna", "Vancouver", "Zagreb", "Prague", "Paris", "Budapest", "Bratislava", "Ljubljana", "Geneva", "Davis")
+NATO <- c(0,1,1,1,1,1,1,1,0,1) # 1: member of NATO, 0: non member
+OECD <- c(1,1,0,1,1,1,1,1,1,1) # 1: member of OECD, 0: non member
 
-new_df <- data.frame(country, language, city, NATO, OECD)
+countries_visited <- data.frame(country, continent, language, city, NATO, OECD)
 
-kable(new_df) %>%
-  kable_styling(full_width = FALSE, position = "center")
+kable(countries_visited) %>%
+  kable_styling(full_width = FALSE)
 ```
 
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
@@ -4826,6 +4827,12 @@ kable(new_df) %>%
 <th style="text-align:left;">
 
 country
+
+</th>
+
+<th style="text-align:left;">
+
+continent
 
 </th>
 
@@ -4869,6 +4876,12 @@ Austria
 
 <td style="text-align:left;">
 
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
 German
 
 </td>
@@ -4897,7 +4910,53 @@ Vienna
 
 <td style="text-align:left;">
 
+Canada
+
+</td>
+
+<td style="text-align:left;">
+
+Americas
+
+</td>
+
+<td style="text-align:left;">
+
+English
+
+</td>
+
+<td style="text-align:left;">
+
+Vancouver
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
 Croatia
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
 
 </td>
 
@@ -4937,6 +4996,12 @@ Czech Republic
 
 <td style="text-align:left;">
 
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
 Czech
 
 </td>
@@ -4966,6 +5031,12 @@ Prague
 <td style="text-align:left;">
 
 France
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
 
 </td>
 
@@ -5005,6 +5076,12 @@ Hungary
 
 <td style="text-align:left;">
 
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
 Hungarian
 
 </td>
@@ -5034,6 +5111,12 @@ Budapest
 <td style="text-align:left;">
 
 Slovak Republic
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
 
 </td>
 
@@ -5073,6 +5156,12 @@ Slovenia
 
 <td style="text-align:left;">
 
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
 Slovene
 
 </td>
@@ -5107,6 +5196,1836 @@ Switzerland
 
 <td style="text-align:left;">
 
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+French
+
+</td>
+
+<td style="text-align:left;">
+
+Geneva
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+United States
+
+</td>
+
+<td style="text-align:left;">
+
+Americas
+
+</td>
+
+<td style="text-align:left;">
+
+English
+
+</td>
+
+<td style="text-align:left;">
+
+Davis
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+Now I’ll do a subset of `gapminder` to have a smaller data set.
+
+``` r
+Euro_2007 <- gapminder %>%
+  filter(continent %in% "Europe" & year %in% 2007) %>% # only data from Europe and from 2007
+  select(country, continent, gdpPercap, pop) #variables included in subset
+kable(Euro_2007) %>%
+  kable_styling(full_width = FALSE)
+```
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+
+<thead>
+
+<tr>
+
+<th style="text-align:left;">
+
+country
+
+</th>
+
+<th style="text-align:left;">
+
+continent
+
+</th>
+
+<th style="text-align:right;">
+
+gdpPercap
+
+</th>
+
+<th style="text-align:right;">
+
+pop
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="text-align:left;">
+
+Albania
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+5937.030
+
+</td>
+
+<td style="text-align:right;">
+
+3600523
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Austria
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+36126.493
+
+</td>
+
+<td style="text-align:right;">
+
+8199783
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Belgium
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+33692.605
+
+</td>
+
+<td style="text-align:right;">
+
+10392226
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Bosnia and Herzegovina
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+7446.299
+
+</td>
+
+<td style="text-align:right;">
+
+4552198
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Bulgaria
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+10680.793
+
+</td>
+
+<td style="text-align:right;">
+
+7322858
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Croatia
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+14619.223
+
+</td>
+
+<td style="text-align:right;">
+
+4493312
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Czech Republic
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+22833.309
+
+</td>
+
+<td style="text-align:right;">
+
+10228744
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Denmark
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+35278.419
+
+</td>
+
+<td style="text-align:right;">
+
+5468120
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Finland
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+33207.084
+
+</td>
+
+<td style="text-align:right;">
+
+5238460
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+France
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+30470.017
+
+</td>
+
+<td style="text-align:right;">
+
+61083916
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Germany
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+32170.374
+
+</td>
+
+<td style="text-align:right;">
+
+82400996
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Greece
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+27538.412
+
+</td>
+
+<td style="text-align:right;">
+
+10706290
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Hungary
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+18008.944
+
+</td>
+
+<td style="text-align:right;">
+
+9956108
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Iceland
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+36180.789
+
+</td>
+
+<td style="text-align:right;">
+
+301931
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Ireland
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+40675.996
+
+</td>
+
+<td style="text-align:right;">
+
+4109086
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Italy
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+28569.720
+
+</td>
+
+<td style="text-align:right;">
+
+58147733
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Montenegro
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+9253.896
+
+</td>
+
+<td style="text-align:right;">
+
+684736
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Netherlands
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+36797.933
+
+</td>
+
+<td style="text-align:right;">
+
+16570613
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Norway
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+49357.190
+
+</td>
+
+<td style="text-align:right;">
+
+4627926
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Poland
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+15389.925
+
+</td>
+
+<td style="text-align:right;">
+
+38518241
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Portugal
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+20509.648
+
+</td>
+
+<td style="text-align:right;">
+
+10642836
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Romania
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+10808.476
+
+</td>
+
+<td style="text-align:right;">
+
+22276056
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Serbia
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+9786.535
+
+</td>
+
+<td style="text-align:right;">
+
+10150265
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Slovak Republic
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+18678.314
+
+</td>
+
+<td style="text-align:right;">
+
+5447502
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Slovenia
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+25768.258
+
+</td>
+
+<td style="text-align:right;">
+
+2009245
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Spain
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+28821.064
+
+</td>
+
+<td style="text-align:right;">
+
+40448191
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Sweden
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+33859.748
+
+</td>
+
+<td style="text-align:right;">
+
+9031088
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Switzerland
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+37506.419
+
+</td>
+
+<td style="text-align:right;">
+
+7554661
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Turkey
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+8458.276
+
+</td>
+
+<td style="text-align:right;">
+
+71158647
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+United Kingdom
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+33203.261
+
+</td>
+
+<td style="text-align:right;">
+
+60776238
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+### inner\_join
+
+`inner_join()` returns all rows from x where there are matching values
+in y, and all columns from x and y.
+
+``` r
+inner_join(countries_visited, Euro_2007) %>% # x=Euro_2007, y=new_df
+  kable() %>%
+  kable_styling(full_width = FALSE)
+```
+
+    ## Joining, by = c("country", "continent")
+
+    ## Warning: Column `country` joining factors with different levels, coercing
+    ## to character vector
+
+    ## Warning: Column `continent` joining factors with different levels, coercing
+    ## to character vector
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+
+<thead>
+
+<tr>
+
+<th style="text-align:left;">
+
+country
+
+</th>
+
+<th style="text-align:left;">
+
+continent
+
+</th>
+
+<th style="text-align:left;">
+
+language
+
+</th>
+
+<th style="text-align:left;">
+
+city
+
+</th>
+
+<th style="text-align:right;">
+
+NATO
+
+</th>
+
+<th style="text-align:right;">
+
+OECD
+
+</th>
+
+<th style="text-align:right;">
+
+gdpPercap
+
+</th>
+
+<th style="text-align:right;">
+
+pop
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="text-align:left;">
+
+Austria
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+German
+
+</td>
+
+<td style="text-align:left;">
+
+Vienna
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+36126.49
+
+</td>
+
+<td style="text-align:right;">
+
+8199783
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Croatia
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+Croatian
+
+</td>
+
+<td style="text-align:left;">
+
+Zagreb
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+14619.22
+
+</td>
+
+<td style="text-align:right;">
+
+4493312
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Czech Republic
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+Czech
+
+</td>
+
+<td style="text-align:left;">
+
+Prague
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+22833.31
+
+</td>
+
+<td style="text-align:right;">
+
+10228744
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+France
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+French
+
+</td>
+
+<td style="text-align:left;">
+
+Paris
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+30470.02
+
+</td>
+
+<td style="text-align:right;">
+
+61083916
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Hungary
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+Hungarian
+
+</td>
+
+<td style="text-align:left;">
+
+Budapest
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+18008.94
+
+</td>
+
+<td style="text-align:right;">
+
+9956108
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Slovak Republic
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+Slovak
+
+</td>
+
+<td style="text-align:left;">
+
+Bratislava
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+18678.31
+
+</td>
+
+<td style="text-align:right;">
+
+5447502
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Slovenia
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+Slovene
+
+</td>
+
+<td style="text-align:left;">
+
+Ljubljana
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+25768.26
+
+</td>
+
+<td style="text-align:right;">
+
+2009245
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Switzerland
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+French
+
+</td>
+
+<td style="text-align:left;">
+
+Geneva
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+37506.42
+
+</td>
+
+<td style="text-align:right;">
+
+7554661
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+From the table above, we can see that there is only data for the
+European countries as there are no matches for Canada and United States
+with the `Euro_2007` subset.
+
+### semi\_join
+
+`semi_join()` Returns all rows from x where there are matching values in
+y, keeping just the columns from x.
+
+``` r
+semi_join(countries_visited, Euro_2007) %>%
+  kable()%>%
+  kable_styling(full_width = FALSE)
+```
+
+    ## Joining, by = c("country", "continent")
+
+    ## Warning: Column `country` joining factors with different levels, coercing
+    ## to character vector
+
+    ## Warning: Column `continent` joining factors with different levels, coercing
+    ## to character vector
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+
+<thead>
+
+<tr>
+
+<th style="text-align:left;">
+
+country
+
+</th>
+
+<th style="text-align:left;">
+
+continent
+
+</th>
+
+<th style="text-align:left;">
+
+language
+
+</th>
+
+<th style="text-align:left;">
+
+city
+
+</th>
+
+<th style="text-align:right;">
+
+NATO
+
+</th>
+
+<th style="text-align:right;">
+
+OECD
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="text-align:left;">
+
+Austria
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+German
+
+</td>
+
+<td style="text-align:left;">
+
+Vienna
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Croatia
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+Croatian
+
+</td>
+
+<td style="text-align:left;">
+
+Zagreb
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Czech Republic
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+Czech
+
+</td>
+
+<td style="text-align:left;">
+
+Prague
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+France
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+French
+
+</td>
+
+<td style="text-align:left;">
+
+Paris
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Hungary
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+Hungarian
+
+</td>
+
+<td style="text-align:left;">
+
+Budapest
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Slovak Republic
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+Slovak
+
+</td>
+
+<td style="text-align:left;">
+
+Bratislava
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Slovenia
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+Slovene
+
+</td>
+
+<td style="text-align:left;">
+
+Ljubljana
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Switzerland
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
 French
 
 </td>
@@ -5134,3 +7053,4165 @@ Geneva
 </tbody>
 
 </table>
+
+We can see in the table above that only the columns from
+`countries_visited` were kept. This is the major difference between
+`inner_join()` and `semi_join()`.
+
+### left\_join
+
+`left_join()` returns all rows from x, and all columns from x and y.
+
+``` r
+left_join(countries_visited, Euro_2007) %>%
+  kable()%>%
+  kable_styling(full_width = FALSE)
+```
+
+    ## Joining, by = c("country", "continent")
+
+    ## Warning: Column `country` joining factors with different levels, coercing
+    ## to character vector
+
+    ## Warning: Column `continent` joining factors with different levels, coercing
+    ## to character vector
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+
+<thead>
+
+<tr>
+
+<th style="text-align:left;">
+
+country
+
+</th>
+
+<th style="text-align:left;">
+
+continent
+
+</th>
+
+<th style="text-align:left;">
+
+language
+
+</th>
+
+<th style="text-align:left;">
+
+city
+
+</th>
+
+<th style="text-align:right;">
+
+NATO
+
+</th>
+
+<th style="text-align:right;">
+
+OECD
+
+</th>
+
+<th style="text-align:right;">
+
+gdpPercap
+
+</th>
+
+<th style="text-align:right;">
+
+pop
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="text-align:left;">
+
+Austria
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+German
+
+</td>
+
+<td style="text-align:left;">
+
+Vienna
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+36126.49
+
+</td>
+
+<td style="text-align:right;">
+
+8199783
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Canada
+
+</td>
+
+<td style="text-align:left;">
+
+Americas
+
+</td>
+
+<td style="text-align:left;">
+
+English
+
+</td>
+
+<td style="text-align:left;">
+
+Vancouver
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Croatia
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+Croatian
+
+</td>
+
+<td style="text-align:left;">
+
+Zagreb
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+14619.22
+
+</td>
+
+<td style="text-align:right;">
+
+4493312
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Czech Republic
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+Czech
+
+</td>
+
+<td style="text-align:left;">
+
+Prague
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+22833.31
+
+</td>
+
+<td style="text-align:right;">
+
+10228744
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+France
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+French
+
+</td>
+
+<td style="text-align:left;">
+
+Paris
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+30470.02
+
+</td>
+
+<td style="text-align:right;">
+
+61083916
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Hungary
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+Hungarian
+
+</td>
+
+<td style="text-align:left;">
+
+Budapest
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+18008.94
+
+</td>
+
+<td style="text-align:right;">
+
+9956108
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Slovak Republic
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+Slovak
+
+</td>
+
+<td style="text-align:left;">
+
+Bratislava
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+18678.31
+
+</td>
+
+<td style="text-align:right;">
+
+5447502
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Slovenia
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+Slovene
+
+</td>
+
+<td style="text-align:left;">
+
+Ljubljana
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+25768.26
+
+</td>
+
+<td style="text-align:right;">
+
+2009245
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Switzerland
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+French
+
+</td>
+
+<td style="text-align:left;">
+
+Geneva
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+37506.42
+
+</td>
+
+<td style="text-align:right;">
+
+7554661
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+United States
+
+</td>
+
+<td style="text-align:left;">
+
+Americas
+
+</td>
+
+<td style="text-align:left;">
+
+English
+
+</td>
+
+<td style="text-align:left;">
+
+Davis
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+Here, we can see that the countries from the Americas were kept in the
+output even when they are not contained within the `Euro_2007`. Since
+these countries don’t have a match with `Euro_2007` `NA` appears in the
+columns that don’t belong to `countries_visited`.
+
+Now let’s change the value of x and y to and see what happens:
+
+``` r
+left_join(Euro_2007, countries_visited) %>%
+  kable()%>%
+  kable_styling(full_width = FALSE)
+```
+
+    ## Joining, by = c("country", "continent")
+
+    ## Warning: Column `country` joining factors with different levels, coercing
+    ## to character vector
+
+    ## Warning: Column `continent` joining factors with different levels, coercing
+    ## to character vector
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+
+<thead>
+
+<tr>
+
+<th style="text-align:left;">
+
+country
+
+</th>
+
+<th style="text-align:left;">
+
+continent
+
+</th>
+
+<th style="text-align:right;">
+
+gdpPercap
+
+</th>
+
+<th style="text-align:right;">
+
+pop
+
+</th>
+
+<th style="text-align:left;">
+
+language
+
+</th>
+
+<th style="text-align:left;">
+
+city
+
+</th>
+
+<th style="text-align:right;">
+
+NATO
+
+</th>
+
+<th style="text-align:right;">
+
+OECD
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="text-align:left;">
+
+Albania
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+5937.030
+
+</td>
+
+<td style="text-align:right;">
+
+3600523
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Austria
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+36126.493
+
+</td>
+
+<td style="text-align:right;">
+
+8199783
+
+</td>
+
+<td style="text-align:left;">
+
+German
+
+</td>
+
+<td style="text-align:left;">
+
+Vienna
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Belgium
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+33692.605
+
+</td>
+
+<td style="text-align:right;">
+
+10392226
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Bosnia and Herzegovina
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+7446.299
+
+</td>
+
+<td style="text-align:right;">
+
+4552198
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Bulgaria
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+10680.793
+
+</td>
+
+<td style="text-align:right;">
+
+7322858
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Croatia
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+14619.223
+
+</td>
+
+<td style="text-align:right;">
+
+4493312
+
+</td>
+
+<td style="text-align:left;">
+
+Croatian
+
+</td>
+
+<td style="text-align:left;">
+
+Zagreb
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Czech Republic
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+22833.309
+
+</td>
+
+<td style="text-align:right;">
+
+10228744
+
+</td>
+
+<td style="text-align:left;">
+
+Czech
+
+</td>
+
+<td style="text-align:left;">
+
+Prague
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Denmark
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+35278.419
+
+</td>
+
+<td style="text-align:right;">
+
+5468120
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Finland
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+33207.084
+
+</td>
+
+<td style="text-align:right;">
+
+5238460
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+France
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+30470.017
+
+</td>
+
+<td style="text-align:right;">
+
+61083916
+
+</td>
+
+<td style="text-align:left;">
+
+French
+
+</td>
+
+<td style="text-align:left;">
+
+Paris
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Germany
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+32170.374
+
+</td>
+
+<td style="text-align:right;">
+
+82400996
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Greece
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+27538.412
+
+</td>
+
+<td style="text-align:right;">
+
+10706290
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Hungary
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+18008.944
+
+</td>
+
+<td style="text-align:right;">
+
+9956108
+
+</td>
+
+<td style="text-align:left;">
+
+Hungarian
+
+</td>
+
+<td style="text-align:left;">
+
+Budapest
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Iceland
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+36180.789
+
+</td>
+
+<td style="text-align:right;">
+
+301931
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Ireland
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+40675.996
+
+</td>
+
+<td style="text-align:right;">
+
+4109086
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Italy
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+28569.720
+
+</td>
+
+<td style="text-align:right;">
+
+58147733
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Montenegro
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+9253.896
+
+</td>
+
+<td style="text-align:right;">
+
+684736
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Netherlands
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+36797.933
+
+</td>
+
+<td style="text-align:right;">
+
+16570613
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Norway
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+49357.190
+
+</td>
+
+<td style="text-align:right;">
+
+4627926
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Poland
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+15389.925
+
+</td>
+
+<td style="text-align:right;">
+
+38518241
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Portugal
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+20509.648
+
+</td>
+
+<td style="text-align:right;">
+
+10642836
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Romania
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+10808.476
+
+</td>
+
+<td style="text-align:right;">
+
+22276056
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Serbia
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+9786.535
+
+</td>
+
+<td style="text-align:right;">
+
+10150265
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Slovak Republic
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+18678.314
+
+</td>
+
+<td style="text-align:right;">
+
+5447502
+
+</td>
+
+<td style="text-align:left;">
+
+Slovak
+
+</td>
+
+<td style="text-align:left;">
+
+Bratislava
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Slovenia
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+25768.258
+
+</td>
+
+<td style="text-align:right;">
+
+2009245
+
+</td>
+
+<td style="text-align:left;">
+
+Slovene
+
+</td>
+
+<td style="text-align:left;">
+
+Ljubljana
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Spain
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+28821.064
+
+</td>
+
+<td style="text-align:right;">
+
+40448191
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Sweden
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+33859.748
+
+</td>
+
+<td style="text-align:right;">
+
+9031088
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Switzerland
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+37506.419
+
+</td>
+
+<td style="text-align:right;">
+
+7554661
+
+</td>
+
+<td style="text-align:left;">
+
+French
+
+</td>
+
+<td style="text-align:left;">
+
+Geneva
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Turkey
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+8458.276
+
+</td>
+
+<td style="text-align:right;">
+
+71158647
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+United Kingdom
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+33203.261
+
+</td>
+
+<td style="text-align:right;">
+
+60776238
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+We can see that all rows (countries) from the `Euro_2007` subset were
+kept and all columns from both data frames.
+
+### anti\_join
+
+`anti_join()` returns all rows from x where there are not matching
+values in y, keeping just columns from x.
+
+``` r
+anti_join(countries_visited, Euro_2007) %>%
+  kable()%>%
+  kable_styling(full_width = FALSE)
+```
+
+    ## Joining, by = c("country", "continent")
+
+    ## Warning: Column `country` joining factors with different levels, coercing
+    ## to character vector
+
+    ## Warning: Column `continent` joining factors with different levels, coercing
+    ## to character vector
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+
+<thead>
+
+<tr>
+
+<th style="text-align:left;">
+
+country
+
+</th>
+
+<th style="text-align:left;">
+
+continent
+
+</th>
+
+<th style="text-align:left;">
+
+language
+
+</th>
+
+<th style="text-align:left;">
+
+city
+
+</th>
+
+<th style="text-align:right;">
+
+NATO
+
+</th>
+
+<th style="text-align:right;">
+
+OECD
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="text-align:left;">
+
+Canada
+
+</td>
+
+<td style="text-align:left;">
+
+Americas
+
+</td>
+
+<td style="text-align:left;">
+
+English
+
+</td>
+
+<td style="text-align:left;">
+
+Vancouver
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+United States
+
+</td>
+
+<td style="text-align:left;">
+
+Americas
+
+</td>
+
+<td style="text-align:left;">
+
+English
+
+</td>
+
+<td style="text-align:left;">
+
+Davis
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+We can see that only the countries from the Americas were kept, only the
+non-matching data.
+
+### full\_join
+
+`full_join()` returns all rows and all columns from both x and y. NA is
+returned for non matching values.
+
+``` r
+full_join(countries_visited, Euro_2007) %>%
+  kable()%>%
+  kable_styling(full_width = FALSE)
+```
+
+    ## Joining, by = c("country", "continent")
+
+    ## Warning: Column `country` joining factors with different levels, coercing
+    ## to character vector
+
+    ## Warning: Column `continent` joining factors with different levels, coercing
+    ## to character vector
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+
+<thead>
+
+<tr>
+
+<th style="text-align:left;">
+
+country
+
+</th>
+
+<th style="text-align:left;">
+
+continent
+
+</th>
+
+<th style="text-align:left;">
+
+language
+
+</th>
+
+<th style="text-align:left;">
+
+city
+
+</th>
+
+<th style="text-align:right;">
+
+NATO
+
+</th>
+
+<th style="text-align:right;">
+
+OECD
+
+</th>
+
+<th style="text-align:right;">
+
+gdpPercap
+
+</th>
+
+<th style="text-align:right;">
+
+pop
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="text-align:left;">
+
+Austria
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+German
+
+</td>
+
+<td style="text-align:left;">
+
+Vienna
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+36126.493
+
+</td>
+
+<td style="text-align:right;">
+
+8199783
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Canada
+
+</td>
+
+<td style="text-align:left;">
+
+Americas
+
+</td>
+
+<td style="text-align:left;">
+
+English
+
+</td>
+
+<td style="text-align:left;">
+
+Vancouver
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Croatia
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+Croatian
+
+</td>
+
+<td style="text-align:left;">
+
+Zagreb
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+14619.223
+
+</td>
+
+<td style="text-align:right;">
+
+4493312
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Czech Republic
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+Czech
+
+</td>
+
+<td style="text-align:left;">
+
+Prague
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+22833.309
+
+</td>
+
+<td style="text-align:right;">
+
+10228744
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+France
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+French
+
+</td>
+
+<td style="text-align:left;">
+
+Paris
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+30470.017
+
+</td>
+
+<td style="text-align:right;">
+
+61083916
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Hungary
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+Hungarian
+
+</td>
+
+<td style="text-align:left;">
+
+Budapest
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+18008.944
+
+</td>
+
+<td style="text-align:right;">
+
+9956108
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Slovak Republic
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+Slovak
+
+</td>
+
+<td style="text-align:left;">
+
+Bratislava
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+18678.314
+
+</td>
+
+<td style="text-align:right;">
+
+5447502
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Slovenia
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+Slovene
+
+</td>
+
+<td style="text-align:left;">
+
+Ljubljana
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+25768.258
+
+</td>
+
+<td style="text-align:right;">
+
+2009245
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Switzerland
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+French
+
+</td>
+
+<td style="text-align:left;">
+
+Geneva
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+37506.419
+
+</td>
+
+<td style="text-align:right;">
+
+7554661
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+United States
+
+</td>
+
+<td style="text-align:left;">
+
+Americas
+
+</td>
+
+<td style="text-align:left;">
+
+English
+
+</td>
+
+<td style="text-align:left;">
+
+Davis
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Albania
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+5937.030
+
+</td>
+
+<td style="text-align:right;">
+
+3600523
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Belgium
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+33692.605
+
+</td>
+
+<td style="text-align:right;">
+
+10392226
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Bosnia and Herzegovina
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+7446.299
+
+</td>
+
+<td style="text-align:right;">
+
+4552198
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Bulgaria
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+10680.793
+
+</td>
+
+<td style="text-align:right;">
+
+7322858
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Denmark
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+35278.419
+
+</td>
+
+<td style="text-align:right;">
+
+5468120
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Finland
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+33207.084
+
+</td>
+
+<td style="text-align:right;">
+
+5238460
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Germany
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+32170.374
+
+</td>
+
+<td style="text-align:right;">
+
+82400996
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Greece
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+27538.412
+
+</td>
+
+<td style="text-align:right;">
+
+10706290
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Iceland
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+36180.789
+
+</td>
+
+<td style="text-align:right;">
+
+301931
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Ireland
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+40675.996
+
+</td>
+
+<td style="text-align:right;">
+
+4109086
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Italy
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+28569.720
+
+</td>
+
+<td style="text-align:right;">
+
+58147733
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Montenegro
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+9253.896
+
+</td>
+
+<td style="text-align:right;">
+
+684736
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Netherlands
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+36797.933
+
+</td>
+
+<td style="text-align:right;">
+
+16570613
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Norway
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+49357.190
+
+</td>
+
+<td style="text-align:right;">
+
+4627926
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Poland
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+15389.925
+
+</td>
+
+<td style="text-align:right;">
+
+38518241
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Portugal
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+20509.648
+
+</td>
+
+<td style="text-align:right;">
+
+10642836
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Romania
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+10808.476
+
+</td>
+
+<td style="text-align:right;">
+
+22276056
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Serbia
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+9786.535
+
+</td>
+
+<td style="text-align:right;">
+
+10150265
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Spain
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+28821.064
+
+</td>
+
+<td style="text-align:right;">
+
+40448191
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Sweden
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+33859.748
+
+</td>
+
+<td style="text-align:right;">
+
+9031088
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Turkey
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+8458.276
+
+</td>
+
+<td style="text-align:right;">
+
+71158647
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+United Kingdom
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:left;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+NA
+
+</td>
+
+<td style="text-align:right;">
+
+33203.261
+
+</td>
+
+<td style="text-align:right;">
+
+60776238
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+All data from both `countries_visited` and `Euro_2007` is kept matches
+and non matches.
+
+## Activity \#3
+
+*Exploring `merge()` which also does joins. *Exploring `match()`

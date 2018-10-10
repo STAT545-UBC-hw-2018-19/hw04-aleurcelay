@@ -44,7 +44,7 @@ NAmerica = gapminder %>%
   
 #Put the subset in a table
   kable (NAmerica) %>%
-  kable_styling(full_width = FALSE, position = "center")
+  kable_styling(full_width = FALSE)
   
 ```
 
@@ -113,7 +113,7 @@ Max_LE=gapminder %>%
   summarize(max_lifeExp=max(lifeExp)) # Calculate the maximum value of life expectancy
   
 kable(Max_LE) %>%
-kable_styling(full_width = FALSE, position = "center")
+kable_styling(full_width = FALSE)
 ```
 
 Now, let's reshape the subset above turning each continent into a variable and having one row per year:
@@ -123,7 +123,7 @@ tidy_continent=Max_LE %>%
 spread(key = continent, value= max_lifeExp)
 
 kable(tidy_continent) %>%
-  kable_styling(full_width = FALSE, position = "center")
+  kable_styling(full_width = FALSE)
 ```
 
 With this arrangement, we can compare for example the maximum values of life expectancy between two continents for the 12 years of data as follows:
@@ -148,7 +148,7 @@ tidy_year=Max_LE%>%
 
 tidy_year%>%  
   kable() %>%
-  kable_styling(full_width = FALSE, position = "center")
+  kable_styling(full_width = FALSE)
 ```
 
 This allows to compare two years of data, for example:
@@ -173,7 +173,7 @@ Let's check it out to rearrange the data again:
 gather(tidy_year, year, max_lifeExp, -continent) %>% #define data, key and value, less the continent column created.
   select(year, continent, max_lifeExp) %>% #rearrenge order of columns
   kable() %>%
-  kable_styling(full_width = FALSE, position = "center")
+  kable_styling(full_width = FALSE)
 ```
 
 Now we have the original subset. In this case, R put all the year columns that I had before into a single one. 
@@ -185,9 +185,10 @@ Now we have the original subset. In this case, R put all the year columns that I
 
 Create a second data frame, complementary to Gapminder. Join this with (part of) Gapminder using a dplyr join function and make some observations about the process and result. Explore the different types of joins. 
 
-For this task, I will choose some European countries I've visited. The variables in this second data frame will be:
+For this task, I will choose some countries I've visited. The variables in this second data frame will be:
 
 *country
+*continent
 *language spoken
 *a city visited
 *NATO membership 
@@ -196,18 +197,104 @@ For this task, I will choose some European countries I've visited. The variables
 Now, let's create the data frame:
 
 ```{r}
-country <- c ("Austria", "Croatia", "Czech Republic", "France", "Hungary","Slovak Republic","Slovenia", "Switzerland")
-language <-c ("German", "Croatian", "Czech", "French", "Hungarian", "Slovak", "Slovene", "French")
-city <- c("Vienna", "Zagreb", "Prague", "Paris", "Budapest", "Bratislava", "Ljubljana", "Geneva")
-NATO <- c(0,1,1,1,1,1,1,0) # 1: member of NATO, 0: non member
-OECD <- c(1,0,1,1,1,1,1,1) # 1: member of OECD, 0: non member
+country <- c ("Austria", "Canada", "Croatia", "Czech Republic", "France", "Hungary","Slovak Republic","Slovenia", "Switzerland", "United States")
+continent <- c("Europe", "Americas","Europe","Europe","Europe","Europe","Europe","Europe","Europe", "Americas" )
+language <-c ("German", "English", "Croatian", "Czech", "French", "Hungarian", "Slovak", "Slovene", "French", "English")
+city <- c("Vienna", "Vancouver", "Zagreb", "Prague", "Paris", "Budapest", "Bratislava", "Ljubljana", "Geneva", "Davis")
+NATO <- c(0,1,1,1,1,1,1,1,0,1) # 1: member of NATO, 0: non member
+OECD <- c(1,1,0,1,1,1,1,1,1,1) # 1: member of OECD, 0: non member
 
-new_df <- data.frame(country, language, city, NATO, OECD)
+countries_visited <- data.frame(country, continent, language, city, NATO, OECD)
 
-kable(new_df) %>%
-  kable_styling(full_width = FALSE, position = "center")
+kable(countries_visited) %>%
+  kable_styling(full_width = FALSE)
   
 ```
 
+Now I'll do a subset of `gapminder` to have a smaller data set. 
 
+```{r}
+Euro_2007 <- gapminder %>%
+  filter(continent %in% "Europe" & year %in% 2007) %>% # only data from Europe and from 2007
+  select(country, continent, gdpPercap, pop) #variables included in subset
+kable(Euro_2007) %>%
+  kable_styling(full_width = FALSE)
+```
+
+ ### inner_join
  
+ `inner_join()` returns all rows from x where there are matching values in y, and all columns from x and y. 
+ 
+```{r}
+inner_join(countries_visited, Euro_2007) %>% # x=Euro_2007, y=new_df
+  kable() %>%
+  kable_styling(full_width = FALSE)
+  
+```
+ 
+ From the table above, we can see that there is only data for the European countries as there are no matches for Canada and United States with the `Euro_2007` subset. 
+ 
+ ### semi_join
+ 
+ `semi_join()` Returns all rows from x where there are matching values in y, keeping just the columns from x.
+ 
+```{r}
+semi_join(countries_visited, Euro_2007) %>%
+  kable()%>%
+  kable_styling(full_width = FALSE)
+```
+ 
+We can see in the table above that only the columns from `countries_visited` were kept. This is the major difference between `inner_join()` and `semi_join()`.
+
+### left_join
+
+`left_join()` returns all rows from x, and all columns from x and y. 
+
+```{r}
+left_join(countries_visited, Euro_2007) %>%
+  kable()%>%
+  kable_styling(full_width = FALSE)
+```
+
+Here, we can see that the countries from the Americas were kept in the output even when they are not contained within the `Euro_2007`. Since these countries don't have a match with `Euro_2007` `NA` appears in the columns that don't belong to `countries_visited`.
+
+Now let's change the value of x and y to and see what happens:
+
+```{r}
+left_join(Euro_2007, countries_visited) %>%
+  kable()%>%
+  kable_styling(full_width = FALSE)
+```
+
+We can see that all rows (countries) from the `Euro_2007` subset were kept and all columns from both data frames. 
+
+### anti_join
+
+`anti_join()` returns all rows from x where there are not matching values in y, keeping just columns from x. 
+
+```{r}
+anti_join(countries_visited, Euro_2007) %>%
+  kable()%>%
+  kable_styling(full_width = FALSE)
+```
+
+We can see that only the countries from the Americas were kept, only the non-matching data.
+
+### full_join
+
+`full_join()` returns all rows and all columns from both x and y. NA is returned for non matching values. 
+
+```{r}
+full_join(countries_visited, Euro_2007) %>%
+  kable()%>%
+  kable_styling(full_width = FALSE)
+  
+```
+
+All data from both `countries_visited` and `Euro_2007` is kept matches and non matches. 
+
+
+## Activity #3
+
+*Exploring `merge()` which also does joins.
+*Exploring `match()` 
