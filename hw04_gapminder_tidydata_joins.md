@@ -898,7 +898,7 @@ grid.arrange(tableGrob(NAtable), NAplot, nrow = 1) #put table next to plot
 
 <img src="hw04_gapminder_tidydata_joins_files/figure-gfm/unnamed-chunk-3-1.png" style="display: block; margin: auto auto auto 0;" />
 
-`spread()` allowed tidying data by making a column for each conytry and
+`spread()` allowed tidying data by making a column for each country and
 each observation in a row. This made it possible to do the above plot
 easily. We can see that in early years, there was a huge gap between the
 life expectancy of Mexico and the rest of North America. However, over
@@ -3415,3 +3415,1719 @@ tidy_year %>%
 The plot shows how the maximum value of life expectancy changed in 10
 years for the 5 continents. In general, they all increased over this
 period of time.
+
+`spread()` does the opposite of `gather()`. It collects a set of column
+names and places them into a single “key” column.
+
+``` r
+gather(tidy_year, year, max_lifeExp, -continent) %>%
+  select(year, continent, max_lifeExp) %>%
+  kable() %>%
+  kable_styling(full_width = FALSE, position = "center")
+```
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+
+<thead>
+
+<tr>
+
+<th style="text-align:left;">
+
+year
+
+</th>
+
+<th style="text-align:left;">
+
+continent
+
+</th>
+
+<th style="text-align:right;">
+
+max\_lifeExp
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="text-align:left;">
+
+1952
+
+</td>
+
+<td style="text-align:left;">
+
+Africa
+
+</td>
+
+<td style="text-align:right;">
+
+52.724
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1952
+
+</td>
+
+<td style="text-align:left;">
+
+Americas
+
+</td>
+
+<td style="text-align:right;">
+
+68.750
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1952
+
+</td>
+
+<td style="text-align:left;">
+
+Asia
+
+</td>
+
+<td style="text-align:right;">
+
+65.390
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1952
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+72.670
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1952
+
+</td>
+
+<td style="text-align:left;">
+
+Oceania
+
+</td>
+
+<td style="text-align:right;">
+
+69.390
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1957
+
+</td>
+
+<td style="text-align:left;">
+
+Africa
+
+</td>
+
+<td style="text-align:right;">
+
+58.089
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1957
+
+</td>
+
+<td style="text-align:left;">
+
+Americas
+
+</td>
+
+<td style="text-align:right;">
+
+69.960
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1957
+
+</td>
+
+<td style="text-align:left;">
+
+Asia
+
+</td>
+
+<td style="text-align:right;">
+
+67.840
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1957
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+73.470
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1957
+
+</td>
+
+<td style="text-align:left;">
+
+Oceania
+
+</td>
+
+<td style="text-align:right;">
+
+70.330
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1962
+
+</td>
+
+<td style="text-align:left;">
+
+Africa
+
+</td>
+
+<td style="text-align:right;">
+
+60.246
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1962
+
+</td>
+
+<td style="text-align:left;">
+
+Americas
+
+</td>
+
+<td style="text-align:right;">
+
+71.300
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1962
+
+</td>
+
+<td style="text-align:left;">
+
+Asia
+
+</td>
+
+<td style="text-align:right;">
+
+69.390
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1962
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+73.680
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1962
+
+</td>
+
+<td style="text-align:left;">
+
+Oceania
+
+</td>
+
+<td style="text-align:right;">
+
+71.240
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1967
+
+</td>
+
+<td style="text-align:left;">
+
+Africa
+
+</td>
+
+<td style="text-align:right;">
+
+61.557
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1967
+
+</td>
+
+<td style="text-align:left;">
+
+Americas
+
+</td>
+
+<td style="text-align:right;">
+
+72.130
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1967
+
+</td>
+
+<td style="text-align:left;">
+
+Asia
+
+</td>
+
+<td style="text-align:right;">
+
+71.430
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1967
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+74.160
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1967
+
+</td>
+
+<td style="text-align:left;">
+
+Oceania
+
+</td>
+
+<td style="text-align:right;">
+
+71.520
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1972
+
+</td>
+
+<td style="text-align:left;">
+
+Africa
+
+</td>
+
+<td style="text-align:right;">
+
+64.274
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1972
+
+</td>
+
+<td style="text-align:left;">
+
+Americas
+
+</td>
+
+<td style="text-align:right;">
+
+72.880
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1972
+
+</td>
+
+<td style="text-align:left;">
+
+Asia
+
+</td>
+
+<td style="text-align:right;">
+
+73.420
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1972
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+74.720
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1972
+
+</td>
+
+<td style="text-align:left;">
+
+Oceania
+
+</td>
+
+<td style="text-align:right;">
+
+71.930
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1977
+
+</td>
+
+<td style="text-align:left;">
+
+Africa
+
+</td>
+
+<td style="text-align:right;">
+
+67.064
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1977
+
+</td>
+
+<td style="text-align:left;">
+
+Americas
+
+</td>
+
+<td style="text-align:right;">
+
+74.210
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1977
+
+</td>
+
+<td style="text-align:left;">
+
+Asia
+
+</td>
+
+<td style="text-align:right;">
+
+75.380
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1977
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+76.110
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1977
+
+</td>
+
+<td style="text-align:left;">
+
+Oceania
+
+</td>
+
+<td style="text-align:right;">
+
+73.490
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1982
+
+</td>
+
+<td style="text-align:left;">
+
+Africa
+
+</td>
+
+<td style="text-align:right;">
+
+69.885
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1982
+
+</td>
+
+<td style="text-align:left;">
+
+Americas
+
+</td>
+
+<td style="text-align:right;">
+
+75.760
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1982
+
+</td>
+
+<td style="text-align:left;">
+
+Asia
+
+</td>
+
+<td style="text-align:right;">
+
+77.110
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1982
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+76.990
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1982
+
+</td>
+
+<td style="text-align:left;">
+
+Oceania
+
+</td>
+
+<td style="text-align:right;">
+
+74.740
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1987
+
+</td>
+
+<td style="text-align:left;">
+
+Africa
+
+</td>
+
+<td style="text-align:right;">
+
+71.913
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1987
+
+</td>
+
+<td style="text-align:left;">
+
+Americas
+
+</td>
+
+<td style="text-align:right;">
+
+76.860
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1987
+
+</td>
+
+<td style="text-align:left;">
+
+Asia
+
+</td>
+
+<td style="text-align:right;">
+
+78.670
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1987
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+77.410
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1987
+
+</td>
+
+<td style="text-align:left;">
+
+Oceania
+
+</td>
+
+<td style="text-align:right;">
+
+76.320
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1992
+
+</td>
+
+<td style="text-align:left;">
+
+Africa
+
+</td>
+
+<td style="text-align:right;">
+
+73.615
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1992
+
+</td>
+
+<td style="text-align:left;">
+
+Americas
+
+</td>
+
+<td style="text-align:right;">
+
+77.950
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1992
+
+</td>
+
+<td style="text-align:left;">
+
+Asia
+
+</td>
+
+<td style="text-align:right;">
+
+79.360
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1992
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+78.770
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1992
+
+</td>
+
+<td style="text-align:left;">
+
+Oceania
+
+</td>
+
+<td style="text-align:right;">
+
+77.560
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1997
+
+</td>
+
+<td style="text-align:left;">
+
+Africa
+
+</td>
+
+<td style="text-align:right;">
+
+74.772
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1997
+
+</td>
+
+<td style="text-align:left;">
+
+Americas
+
+</td>
+
+<td style="text-align:right;">
+
+78.610
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1997
+
+</td>
+
+<td style="text-align:left;">
+
+Asia
+
+</td>
+
+<td style="text-align:right;">
+
+80.690
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1997
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+79.390
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+1997
+
+</td>
+
+<td style="text-align:left;">
+
+Oceania
+
+</td>
+
+<td style="text-align:right;">
+
+78.830
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+2002
+
+</td>
+
+<td style="text-align:left;">
+
+Africa
+
+</td>
+
+<td style="text-align:right;">
+
+75.744
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+2002
+
+</td>
+
+<td style="text-align:left;">
+
+Americas
+
+</td>
+
+<td style="text-align:right;">
+
+79.770
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+2002
+
+</td>
+
+<td style="text-align:left;">
+
+Asia
+
+</td>
+
+<td style="text-align:right;">
+
+82.000
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+2002
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+80.620
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+2002
+
+</td>
+
+<td style="text-align:left;">
+
+Oceania
+
+</td>
+
+<td style="text-align:right;">
+
+80.370
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+2007
+
+</td>
+
+<td style="text-align:left;">
+
+Africa
+
+</td>
+
+<td style="text-align:right;">
+
+76.442
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+2007
+
+</td>
+
+<td style="text-align:left;">
+
+Americas
+
+</td>
+
+<td style="text-align:right;">
+
+80.653
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+2007
+
+</td>
+
+<td style="text-align:left;">
+
+Asia
+
+</td>
+
+<td style="text-align:right;">
+
+82.603
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+2007
+
+</td>
+
+<td style="text-align:left;">
+
+Europe
+
+</td>
+
+<td style="text-align:right;">
+
+81.757
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+2007
+
+</td>
+
+<td style="text-align:left;">
+
+Oceania
+
+</td>
+
+<td style="text-align:right;">
+
+81.235
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+Now we have the original subset. In this case, R put all the year
+columns that I had before into a single one.
+
+**Join Prompts (join, merge, look up)**
+
+## Activity \#1
+
+Create a second data frame, complementary to Gapminder. Join this with
+(part of) Gapminder using a dplyr join function and make some
+observations about the process and result. Explore the different types
+of joins.
+
+For this task, I will choose some European countries I’ve visited. The
+variables in this second data frame will be:
+
+*country *language spoken *a city visited *NATO membership \*OECD
+membership
+
+Now, let’s create the data
+frame:
+
+``` r
+country <- c ("Austria", "Croatia", "Czech Republic", "France", "Hungary","Slovak Republic","Slovenia", "Switzerland")
+language <-c ("German", "Croatian", "Czech", "French", "Hungarian", "Slovak", "Slovene", "French")
+city <- c("Vienna", "Zagreb", "Prague", "Paris", "Budapest", "Bratislava", "Ljubljana", "Geneva")
+NATO <- c(0,1,1,1,1,1,1,0) # 1: member of NATO, 0: non member
+OECD <- c(1,0,1,1,1,1,1,1) # 1: member of OECD, 0: non member
+
+new_df <- data.frame(country, language, city, NATO, OECD)
+
+kable(new_df) %>%
+  kable_styling(full_width = FALSE, position = "center")
+```
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+
+<thead>
+
+<tr>
+
+<th style="text-align:left;">
+
+country
+
+</th>
+
+<th style="text-align:left;">
+
+language
+
+</th>
+
+<th style="text-align:left;">
+
+city
+
+</th>
+
+<th style="text-align:right;">
+
+NATO
+
+</th>
+
+<th style="text-align:right;">
+
+OECD
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="text-align:left;">
+
+Austria
+
+</td>
+
+<td style="text-align:left;">
+
+German
+
+</td>
+
+<td style="text-align:left;">
+
+Vienna
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Croatia
+
+</td>
+
+<td style="text-align:left;">
+
+Croatian
+
+</td>
+
+<td style="text-align:left;">
+
+Zagreb
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Czech Republic
+
+</td>
+
+<td style="text-align:left;">
+
+Czech
+
+</td>
+
+<td style="text-align:left;">
+
+Prague
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+France
+
+</td>
+
+<td style="text-align:left;">
+
+French
+
+</td>
+
+<td style="text-align:left;">
+
+Paris
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Hungary
+
+</td>
+
+<td style="text-align:left;">
+
+Hungarian
+
+</td>
+
+<td style="text-align:left;">
+
+Budapest
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Slovak Republic
+
+</td>
+
+<td style="text-align:left;">
+
+Slovak
+
+</td>
+
+<td style="text-align:left;">
+
+Bratislava
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Slovenia
+
+</td>
+
+<td style="text-align:left;">
+
+Slovene
+
+</td>
+
+<td style="text-align:left;">
+
+Ljubljana
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Switzerland
+
+</td>
+
+<td style="text-align:left;">
+
+French
+
+</td>
+
+<td style="text-align:left;">
+
+Geneva
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>

@@ -63,7 +63,7 @@ NAplot = NAmerica %>%
 grid.arrange(tableGrob(NAtable), NAplot, nrow = 1) #put table next to plot
 ```
 
-`spread()` allowed tidying data by making a column for each conytry and each observation in a row. This made it possible to do the above plot easily. We can see that in early years, there was a huge gap between the life expectancy of Mexico and the rest of North America. However, over the years, life expectancy in Mexico increased and in 2007 it was not too far behind from United States and Canada.
+`spread()` allowed tidying data by making a column for each country and each observation in a row. This made it possible to do the above plot easily. We can see that in early years, there was a huge gap between the life expectancy of Mexico and the rest of North America. However, over the years, life expectancy in Mexico increased and in 2007 it was not too far behind from United States and Canada.
 
 Now let's compare life expectancy between US and Canada by making a scatterplot:
 
@@ -164,3 +164,48 @@ tidy_year %>%
 
 The plot shows how the maximum value of life expectancy changed in 10 years for the 5 continents. In general, they all increased over this period of time. 
 
+
+`spread()` does the opposite of `gather()`. It collects a set of column names and places them into a single "key" column. 
+
+```{r}
+gather(tidy_year, year, max_lifeExp, -continent) %>%
+  select(year, continent, max_lifeExp) %>%
+  kable() %>%
+  kable_styling(full_width = FALSE, position = "center")
+```
+
+Now we have the original subset. In this case, R put all the year columns that I had before into a single one. 
+
+
+**Join Prompts (join, merge, look up)**
+
+## Activity #1
+
+Create a second data frame, complementary to Gapminder. Join this with (part of) Gapminder using a dplyr join function and make some observations about the process and result. Explore the different types of joins. 
+
+For this task, I will choose some European countries I've visited. The variables in this second data frame will be:
+
+*country
+*language spoken
+*a city visited
+*NATO membership 
+*OECD membership
+
+Now, let's create the data frame:
+
+```{r}
+country <- c ("Austria", "Croatia", "Czech Republic", "France", "Hungary","Slovak Republic","Slovenia", "Switzerland")
+language <-c ("German", "Croatian", "Czech", "French", "Hungarian", "Slovak", "Slovene", "French")
+city <- c("Vienna", "Zagreb", "Prague", "Paris", "Budapest", "Bratislava", "Ljubljana", "Geneva")
+NATO <- c(0,1,1,1,1,1,1,0) # 1: member of NATO, 0: non member
+OECD <- c(1,0,1,1,1,1,1,1) # 1: member of OECD, 0: non member
+
+new_df <- data.frame(country, language, city, NATO, OECD)
+
+kable(new_df) %>%
+  kable_styling(full_width = FALSE, position = "center")
+  
+```
+
+
+ 
